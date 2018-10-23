@@ -14,7 +14,6 @@ public class RuntimeTest {
 		List<?> c = new ArrayList<String>();
 		c.add(null);
 		System.out.println(c);
-		// test
 
 	}
 
