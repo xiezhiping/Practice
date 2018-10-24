@@ -82,7 +82,7 @@ public class EventTest {
 		public void windowOpened(java.awt.event.WindowEvent arg0) {
 			// TODO Auto-generated method stub
 			
-		}
+		} // test
 	}
 
 }
