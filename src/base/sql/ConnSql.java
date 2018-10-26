@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class ConnASql {
+public class ConnSql {
 
 	public static void main(String[] args)  {
 		// TODO Auto-generated method stub
