@@ -12,7 +12,7 @@ import java.util.Random;
 public class HeapPollution {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		HeapPollution.faultyMethod(Arrays.asList("Hello"), Arrays.asList("World"));
+		HeapPollution.faultyMethod(Arrays.asList("Hello"), Arrays.asList("World")); // 这行运行时会报错
 
 	}
 	@SafeVarargs
