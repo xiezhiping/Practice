@@ -9,7 +9,7 @@ public class FileWriterTest {
 		// TODO Auto-generated method stub
 		try {
 			FileWriter fw = new FileWriter("copy.txt");
-			fw.write("这是一行测试代码\r\n");
+			fw.write("test\r\n");
 			System.out.println("这是一条测试代码");
 		} catch (IOException e) {
 			e.printStackTrace();
