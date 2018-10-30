@@ -12,21 +12,23 @@ public class DrawThread extends Thread {
     }
     // 当多个线程修改同一个共享数据时，将涉及数据安全问题
     public void run() {
-    	// 账户余额大于取线数目
-    	if (account.getBalance() >= drawAmount) {
-    		// 吐钞票
-    		System.out.println(getName() + "取钱成功！取出钞票：" + drawAmount);
-    		try { // 执行线程切换的代码
-    			Thread.sleep(1000);
-    		} catch (Exception e) {
-    			e.printStackTrace();
-    		}
-    		// 修改余额
-    		account.setBalance(account.getBalance() - drawAmount);
-    		System.out.println("\t余额为：" + account.getBalance());
-    	} else {
-    		System.out.println(getName() + "取钱失败！余额不足！");
-    	}
+        synchronized(account) { // 给被共享的资源设置为同步监视器
+        	// 账户余额大于取线数目
+        	if (account.getBalance() >= drawAmount) {
+        		// 吐钞票
+        		System.out.println(getName() + "取钱成功！取出钞票：" + drawAmount);
+        		try { // 执行线程切换的代码
+        			Thread.sleep(1000);
+        		} catch (Exception e) {
+        			e.printStackTrace();
+        		}
+        		// 修改余额
+        		account.setBalance(account.getBalance() - drawAmount);
+        		System.out.println("\t余额为：" + account.getBalance());
+        	} else {
+        		System.out.println(getName() + "取钱失败！余额不足！");
+        	}
+        }
     }
 
 }
