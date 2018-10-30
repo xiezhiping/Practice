@@ -16,7 +16,7 @@ public class DrawThread extends Thread {
     	if (account.getBalance() >= drawAmount) {
     		// 吐钞票
     		System.out.println(getName() + "取钱成功！取出钞票：" + drawAmount);
-    		try {
+    		try { // 执行线程切换
     			Thread.sleep(1000);
     		} catch (Exception e) {
     			e.printStackTrace();
