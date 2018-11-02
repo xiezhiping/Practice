@@ -25,7 +25,7 @@ public class DownThread extends Thread {
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setConnectTimeout(5*1000);
 			conn.setRequestMethod("GET");
-			conn.setRequestProperty("Accept", "image/gif");
+			conn.setRequestProperty("Accept", "image/jpeg, */*");
 			conn.setRequestProperty("Accept-Language", "zh-CN");
 			conn.setRequestProperty("Charset", "UTF-8");
 			InputStream is = conn.getInputStream();

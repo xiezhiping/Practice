@@ -36,7 +36,7 @@ public class DownUtil {
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setConnectTimeout(5*1000);
 		conn.setRequestMethod("GET");
-		conn.setRequestProperty("Accept", "image/gif"); // TODO
+		conn.setRequestProperty("Accept", "image/jpeg, */*"); // TODO
 		conn.setRequestProperty("Accept-Language", "zh-CN");
 		conn.setRequestProperty("Charset", "UTF-8");
 		conn.setRequestProperty("Connection", "Keep-Alive");
@@ -45,7 +45,6 @@ public class DownUtil {
 		conn.disconnect();
 		int currentPartSize = fileSize / threadNum + 1;
 		RandomAccessFile file = new RandomAccessFile(targetFile, "rw");
-		System.out.println("" + fileSize + conn);
 		// 设置本地文件的大小 
 		file.setLength(fileSize);
 		file.close();
