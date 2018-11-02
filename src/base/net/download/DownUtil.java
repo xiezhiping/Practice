@@ -45,7 +45,8 @@ public class DownUtil {
 		conn.disconnect();
 		int currentPartSize = fileSize / threadNum + 1;
 		RandomAccessFile file = new RandomAccessFile(targetFile, "rw");
-		// 设置本地文件的大小
+		System.out.println("" + fileSize + conn);
+		// 设置本地文件的大小 
 		file.setLength(fileSize);
 		file.close();
 		for (int i =0; i < threadNum; i++) {
