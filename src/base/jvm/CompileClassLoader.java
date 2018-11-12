@@ -3,6 +3,7 @@ package base.jvm;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 public class CompileClassLoader extends ClassLoader {
 	// 读取一个文件的内容
@@ -76,7 +77,7 @@ public class CompileClassLoader extends ClassLoader {
 		return clazz;
 	}
 	// 定义一个main方法
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException, NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
 		// 如果运行该程序没有参数，即没有目标类
 		if (args.length < 1) {
 			System.out.println("缺少目标类，请按照以下格式运行java源文件");
