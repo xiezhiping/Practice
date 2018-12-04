@@ -12,7 +12,6 @@ public class URLTextFieldListener implements FocusListener {
 
 	@Override
 	public void focusLost(FocusEvent var1) {
-		System.out.println("not focused");
-		
+		DownloadUtil.getInstance().getTarget().setUrl(DownloadUtil.getMainUI().getUrlTextField().getText());	
 	}
 }

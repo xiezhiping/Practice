@@ -5,6 +5,8 @@ import java.awt.FileDialog;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -20,14 +22,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import projects.DownUtil.Business.BrowseButtonListener;
 import projects.DownUtil.Business.CancelListener;
+import projects.DownUtil.Business.ComboBoxListener;
+import projects.DownUtil.Business.DownloadListener;
+import projects.DownUtil.Business.DownloadUtil;
 import projects.DownUtil.Business.FileTextFieldListener;
 import projects.DownUtil.Business.URLTextFieldListener;
+import projects.DownUtil.DataLayer.ComboBoxItemPool;
 
 public class UI {
 	// 定义常量
 	private static String FRAME_LOGO = "src\\projects\\DownUtil\\images\\zju.jpg"; // 顶层frame的logo
-	private static String BROWSE_DIALOG_LOGO = "F:\\java_workspace\\Practice\\src\\projects\\DownUtil\\images\\browse.jpg";
+	private static String BROWSE_DIALOG_LOGO = "src\\projects\\DownUtil\\images\\browse.jpg";
 	private JFrame frame = null; // 最外层的容器：分为两个子容器Panel
 	private JPanel upPanel = null; // 上半部分的Panel
 	private JPanel downPanel = null; // 下半部分的Panel：放【下载并打开】、【下载】、【取消】按钮
@@ -57,18 +64,8 @@ public class UI {
 		cancelButton.addActionListener(new CancelListener());
 		urlTextField.addFocusListener(new URLTextFieldListener());
 		fileTextField.addFocusListener(new FileTextFieldListener());
-		// 采用内部类为【浏览】button绑定点击事件
-		browseButton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent var1) {
-				// 另一种方案是放到初始化，然后需要时setVisible为true，但稍差
-				saveDialog = new FileDialog(frame, "下载内容保存位置:", FileDialog.SAVE); 
-				saveDialog.setBounds(180, 180, 400, 250);
-				saveDialog.setIconImage(getImage(BROWSE_DIALOG_LOGO));  // 设置logo 
-				saveDialog.setVisible(true);
-				
-			}
-		});
+		// 为【浏览】button绑定点击事件，不用内部类主要是为了解耦
+		browseButton.addActionListener(new BrowseButtonListener());
 		// 通过已有的适配器给frame注册窗口监听器
 		frame.addWindowListener(new WindowAdapter() {
 			@Override
@@ -96,7 +93,9 @@ public class UI {
 		// 初始化三个文本编辑域
 		urlTextField = new JTextField(20);
 		fileTextField = new JTextField(20);
-		locationBox = new JComboBox<>();
+		locationBox = new JComboBox<>(ComboBoxItemPool.getItems());
+		locationBox.setEditable(true);  //设置选择框为可编辑模式
+		locationBox.addItemListener(new ComboBoxListener());
 		// 初始化'浏览文件'按钮
 		browseButton = new JButton("浏览");
 		// 初始化最外围的panel容器
@@ -119,6 +118,7 @@ public class UI {
 		// 初始化downPanel下面的三个button
 		openButton = new JButton("下载并打开");
 		downloadButton = new JButton("下载");
+		downloadButton.addActionListener(new DownloadListener());
 		cancelButton = new JButton("取消");
 		// 将按钮添加到downPanel
 		downPanel.add(openButton);
@@ -133,17 +133,12 @@ public class UI {
 		frame.setVisible(true);
 		frame.setIconImage(frameIcon);
 	}
-//	public static void main(String args[]) {
-//		// 临时测试代码
-//		new UI();
-//		System.out.println("successfully!");
-//	}
 	/**
 	 * 通过图片URL获取Image对象
 	 * @param url 图片RUL
 	 * @return Image对象
 	 */
-	private Image getImage(String url) {
+	public static Image getImage(String url) {
 		Image image = null;
 		try {
 			image = ImageIO.read(new File(url));
@@ -207,5 +202,14 @@ public class UI {
 	}
 	public void setCancelButton(JButton cancelButton) {
 		this.cancelButton = cancelButton;
+	}
+	public FileDialog getSaveDialog() {
+		return saveDialog;
+	}
+	public void setSaveDialog(FileDialog saveDialog) {
+		this.saveDialog = saveDialog;
+	}
+	public static String getBROWSE_DIALOG_LOGO() {
+		return BROWSE_DIALOG_LOGO;
 	}
 }
