@@ -26,7 +26,7 @@ import projects.DownUtil.Business.BrowseButtonListener;
 import projects.DownUtil.Business.CancelListener;
 import projects.DownUtil.Business.ComboBoxListener;
 import projects.DownUtil.Business.DownloadListener;
-import projects.DownUtil.Business.DownloadUtil;
+import projects.DownUtil.Business.Main;
 import projects.DownUtil.Business.FileTextFieldListener;
 import projects.DownUtil.Business.URLTextFieldListener;
 import projects.DownUtil.DataLayer.ComboBoxItemPool;

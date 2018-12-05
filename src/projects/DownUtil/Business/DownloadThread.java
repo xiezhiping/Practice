@@ -11,14 +11,14 @@ public class DownloadThread extends Thread {
 	// 定义文件资源的连接
 	private String path;
 	// 当前线程的下载位置
-	private int startPos;
+	private long startPos;
 	// 定义当前线程负责下载文件的大小
-	private int currentPartSize;
+	private long currentPartSize;
 	// 当前线程需要下载的文件快
 	private RandomAccessFile currentPart;
 	// 定义该线程已下载的字节数
-	private int length;
-	public DownloadThread(int startPos, int currentPartSize, RandomAccessFile currentPart, String path) {
+	private long length;
+	public DownloadThread(long startPos, long currentPartSize, RandomAccessFile currentPart, String path) {
 		this.startPos = startPos;
 		this.currentPartSize = currentPartSize;
 		this.currentPart = currentPart;
@@ -51,16 +51,16 @@ public class DownloadThread extends Thread {
 			e.printStackTrace();
 		}
 	}
-	public int getStartPos() {
+	public long getStartPos() {
 		return startPos;
 	}
-	public void setStartPos(int startPos) {
+	public void setStartPos(long startPos) {
 		this.startPos = startPos;
 	}
-	public int getCurrentPartSize() {
+	public long getCurrentPartSize() {
 		return currentPartSize;
 	}
-	public void setCurrentPartSize(int currentPartSize) {
+	public void setCurrentPartSize(long currentPartSize) {
 		this.currentPartSize = currentPartSize;
 	}
 	public RandomAccessFile getCurrentPart() {
@@ -69,10 +69,10 @@ public class DownloadThread extends Thread {
 	public void setCurrentPart(RandomAccessFile currentPart) {
 		this.currentPart = currentPart;
 	}
-	public int getLength() {
+	public long getLength() {
 		return length;
 	}
-	public void setLength(int length) {
+	public void setLength(long length) {
 		this.length = length;
 	}
 	public String getPath() {

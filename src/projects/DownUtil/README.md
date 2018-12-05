@@ -11,12 +11,15 @@
 
 ## 架构
 **我坚信：任何一个好的项目，架构是非常重要的，所以即使这是一个小项目，我也会抓住机会训练自己的架构意识，并不断优化**
-由于项目不大，姑且分为两层，将业务层以下的统一放到BusinessLayer层，不行以后再重构。
+由于项目不大，姑且分为三层。
 * [PresentationLayer](\#PresentationLayer)
 * [BusinessLayer](\#BusinessLayer)
+* [DataLayer](\#DataLayer)
 
 ## PresentationLayer
-展示层
+展示层:包括下载UI，一些提示性的UI界面
 
 ## BusinessLayer
-业务层（涉及数据部分比较少，后续有必要会单独抽出来）
+业务层：主要处理业务，同时为了解耦尽量明确，我将UI中的一些监听器从匿名内部内抽出来单独放在该业务层的包下面
+## DataLayer
+数据层:放一些数据对象对应的类

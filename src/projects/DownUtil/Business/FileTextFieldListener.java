@@ -13,6 +13,6 @@ public class FileTextFieldListener implements FocusListener {
 
 	@Override
 	public void focusLost(FocusEvent var1) {
-		DownloadUtil.getInstance().getTarget().setName(DownloadUtil.getMainUI().getFileTextField().getText());
+		Main.getInstance().getTarget().setName(Main.getMainUI().getFileTextField().getText());
 	}
 }

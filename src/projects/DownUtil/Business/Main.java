@@ -4,38 +4,38 @@ import base.net.download.DownUtil;
 import projects.DownUtil.DataLayer.DownloadTarget;
 import projects.DownUtil.Presentation.UI;
 
-public class DownloadUtil {
-	private static DownloadUtil UTIL = null; // 全局唯一引用
+public class Main {
+	private static Main UTIL = null; // 全局唯一引用
 	private static UI mainUI = null;
 	private static DownloadTarget target = null;
-	private DownloadUtil() {
+	private Main() {
 		// 初始化UI
 		mainUI = new UI();
 		// 初始化一个下载对象
 		target = new DownloadTarget();
 		// 执行
 	}
-	public static DownloadUtil getInstance() {
-		if (DownloadUtil.UTIL == null) {
-			DownloadUtil.UTIL = new DownloadUtil();
+	public static Main getInstance() {
+		if (Main.UTIL == null) {
+			Main.UTIL = new Main();
 		}
-		return DownloadUtil.UTIL;
+		return Main.UTIL;
 	}
 	public static void main(String[] args) {
-		DownloadUtil.getInstance();
+		Main.getInstance();
 		
 	}
 	public static UI getMainUI() {
 		return mainUI;
 	}
 	public static void setMainUI(UI mainUI) {
-		DownloadUtil.mainUI = mainUI;
+		Main.mainUI = mainUI;
 	}
 	public static DownloadTarget getTarget() {
 		return target;
 	}
 	public static void setTarget(DownloadTarget target) {
-		DownloadUtil.target = target;
+		Main.target = target;
 	}
 
 }

@@ -16,7 +16,7 @@ import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
  */
 public class ComboBoxItemPool {
 	private static List<String>  items = new ArrayList<>();
-	private static String DEFAULT = "D:\\MyDownloadUtil";
+	private static String DEFAULT = "D:\\MyDownloadUtil\\";
 	private ComboBoxItemPool() {  // 一般不允许实例化
 		// !!! 初始化不要放在这个构造器里面，因为整个过程不需要这个类的实例，类不会被实例化自然也不会有初始化
 	}
