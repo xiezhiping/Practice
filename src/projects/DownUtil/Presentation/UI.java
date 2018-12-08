@@ -21,6 +21,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.ProgressMonitor;
+
+import com.sun.corba.se.impl.activation.ProcessMonitorThread;
 
 import projects.DownUtil.Business.BrowseButtonListener;
 import projects.DownUtil.Business.CancelListener;
@@ -56,6 +59,7 @@ public class UI {
 	private JButton cancelButton = null;
 	private Image frameIcon = null;
 	private FileDialog saveDialog = null;
+	private ProgressMonitor progressMonitor = null;
 	public UI() {
 		init(); // 初始化UI
 		bindEvents();
@@ -132,6 +136,7 @@ public class UI {
 		frame.setResizable(false);
 		frame.setVisible(true);
 		frame.setIconImage(frameIcon);
+		progressMonitor = new ProgressMonitor(frame, "等待下载任务完成", "已完成：", 0, 100);
 	}
 	/**
 	 * 通过图片URL获取Image对象
@@ -211,5 +216,11 @@ public class UI {
 	}
 	public static String getBROWSE_DIALOG_LOGO() {
 		return BROWSE_DIALOG_LOGO;
+	}
+	public ProgressMonitor getProgressMonitor() {
+		return progressMonitor;
+	}
+	public void setProgressMonitor(ProgressMonitor progressMonitor) {
+		this.progressMonitor = progressMonitor;
 	}
 }

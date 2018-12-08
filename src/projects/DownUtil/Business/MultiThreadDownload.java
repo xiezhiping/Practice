@@ -1,5 +1,8 @@
 package projects.DownUtil.Business;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -10,13 +13,13 @@ import projects.DownUtil.DataLayer.DownloadTarget;
 import projects.DownUtil.DataLayer.HTTPHead;
 
 public class MultiThreadDownload {
-	private static int DEFAULT_Thread_NUM = 5; // 设置默认线程数
+	private static int DEFAULT_Thread_NUM = 1; // 设置默认线程数
 	// 定义下载资源的路径
 	private String path;
 	// 指定所下载的文件的保存位置
 	private String targetFile;
 	// 定义下载的线程对象
-	private DownloadThread[] threads = new DownloadThread[DEFAULT_Thread_NUM];
+	private static DownloadThread[] threads = new DownloadThread[DEFAULT_Thread_NUM];
 	// 保存每个线程下载数据的起始位置
 	private long[] startPos = new long[DEFAULT_Thread_NUM];
 	// 保存每个线程下载数据的截止位置
@@ -24,7 +27,9 @@ public class MultiThreadDownload {
 	// 定义在当前线程数下，根据文件大小，每个线程负责Part的大小
 	private long currentPartSize;
 	// 定义下载的文件的总大小
-	private long fileSize;
+	private static long fileSize;
+    // 统计多个线程已经下载的总大小
+	private static long sumSize = 0;
 	
 	// 启动多线程下载时，传入的是一个包含url（文件来源）等信息的DownloadTarget对象
 	public MultiThreadDownload(DownloadTarget downloadTarget) {
@@ -65,15 +70,64 @@ public class MultiThreadDownload {
 			// 启动下载线程
 			threads[i].start();
 		}
-		
 	}
-	public double getCompleteRate() {
-		// 统计多个线程已经下载的总大小
-		long sumSize = 0;
+	public static int getCompleteRate() {
 		for(int i = 0; i < DEFAULT_Thread_NUM;i++) {
 			sumSize += threads[i].getLength();
 		}
 		// 返回已经完成的百分比
-		return sumSize * 1.0 / fileSize;
+		return (int)(sumSize * 1.0 / fileSize * 100);
 	}
+	private void setBreakPoint(long[] startPos, long[] endPos, File tempFile) {
+		RandomAccessFile rantempFile = null;
+		try {
+			if (tempFile.exists()) {
+				System.out.println("文件已存在，继续下载...");
+				rantempFile = new RandomAccessFile(tempFile, "rw");
+				for (int i = 0; i < DEFAULT_Thread_NUM; i++) {
+					rantempFile.seek(8*i + 8);
+					startPos[i] = rantempFile.readLong();
+					rantempFile.seek(8 * (i + 1000) + 16);
+					endPos[i] = rantempFile.readLong();
+                    System.out.println("thread" + (i + 1) + " startPos:"
+                            + startPos[i] + ", endPos: " + endPos[i]);
+				}
+			} else {
+                rantempFile = new RandomAccessFile(tempFile, "rw");
+                
+                //最后一个线程的截止位置大小为请求资源的大小
+                for (int i = 0; i < DEFAULT_Thread_NUM; i++) {
+                    startPos[i] = currentPartSize * i;
+                    if (i == DEFAULT_Thread_NUM - 1) {
+                        endPos[i] = fileSize;
+                    } else {
+                        endPos[i] = currentPartSize * (i + 1) - 1;
+                    }
+ 
+                    rantempFile.seek(8 * i + 8);
+                    rantempFile.writeLong(startPos[i]);
+                    rantempFile.seek(8 * (i + 1000) + 16);
+                    rantempFile.writeLong(endPos[i]);
+                    System.out.println("thread" + (i + 1) + " startPos:"
+                            + startPos[i] + ", endPos: " + endPos[i]);
+			}
+		}
+			} 
+		catch (FileNotFoundException e) {
+		e.printStackTrace();
+		}
+		catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+		finally {
+			try {
+				if (rantempFile != null) {
+					rantempFile.close();
+				}
+			} catch (IOException ioe) {
+				ioe.printStackTrace();
+			}
+		}
+	}	
 }
+
