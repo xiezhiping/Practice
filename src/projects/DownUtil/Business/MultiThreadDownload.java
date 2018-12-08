@@ -15,9 +15,12 @@ public class MultiThreadDownload {
 	private String path;
 	// 指定所下载的文件的保存位置
 	private String targetFile;
-	private DownloadTarget downloadTarget = null;
 	// 定义下载的线程对象
 	private DownloadThread[] threads = new DownloadThread[DEFAULT_Thread_NUM];
+	// 保存每个线程下载数据的起始位置
+	private long[] startPos = new long[DEFAULT_Thread_NUM];
+	// 保存每个线程下载数据的截止位置
+	private long[] endPos = new long[DEFAULT_Thread_NUM];
 	// 定义在当前线程数下，根据文件大小，每个线程负责Part的大小
 	private long currentPartSize;
 	// 定义下载的文件的总大小
@@ -38,10 +41,10 @@ public class MultiThreadDownload {
 		connection.setRequestProperty(HTTPHead.ACCEPT_LANGUAGE, "UTF-8");
 		connection.setRequestProperty(HTTPHead.CONNECTION, "Keep-Alive");
 		// 得到下载文件的总大小
-		fileSize = connection.getContentLength();
+		fileSize = connection.getContentLengthLong(); // 我看了下两个获取长度方法的实现，一个返回int（超范围为-1），另一个则作了处理
 		System.out.println("fileSize::" + fileSize);
 		connection.disconnect(); // 指示近期服务器不大可能会有其他请求
-		currentPartSize = fileSize / (DEFAULT_Thread_NUM);
+		currentPartSize = fileSize % DEFAULT_Thread_NUM == 0 ? fileSize / (DEFAULT_Thread_NUM) : fileSize / (DEFAULT_Thread_NUM);
 		RandomAccessFile file = new RandomAccessFile(targetFile, "rw");
 		// 设置本地文件的大小
 		if (fileSize > 0) {

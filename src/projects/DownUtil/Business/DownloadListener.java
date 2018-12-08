@@ -6,8 +6,9 @@ import java.awt.event.ActionListener;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 
+import javax.swing.JOptionPane;
+
 import projects.DownUtil.DataLayer.ComboBoxItemPool;
-import projects.DownUtil.Presentation.URLExceptionWarning;
 
 public class DownloadListener implements ActionListener {
 
@@ -24,11 +25,7 @@ public class DownloadListener implements ActionListener {
 			new MultiThreadDownload(Main.getInstance().getTarget()).download();
 		}
 		catch(MalformedURLException urlException) { // 如果是URL无效，当用户点击下载时弹出提示框
-//			Dialog exceptionDialog = new Dialog(DownloadUtil.getMainUI().getFrame(), "test");
-//			exceptionDialog.setBounds(180, 180, 150, 100);
-//			exceptionDialog.
-//			exceptionDialog.setVisible(true);
-			new URLExceptionWarning(Main.getMainUI().getFrame());
+			JOptionPane.showMessageDialog(Main.getMainUI().getFrame(), "您输入的URL不正确,请重新输入");
 		}
 		catch (Exception e) {
 			e.printStackTrace();

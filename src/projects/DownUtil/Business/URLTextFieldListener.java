@@ -9,10 +9,6 @@ public class URLTextFieldListener implements FocusListener {
 
 	@Override
 	public void focusGained(FocusEvent var1) {
-//		String fileName = this.getFileName(DownloadUtil.getMainUI().getUrlTextField().getText());
-//		if ( fileName!=null) {
-//			DownloadUtil.getMainUI().getFileTextField().setText(fileName);
-//		}
 	}
 
 	@Override

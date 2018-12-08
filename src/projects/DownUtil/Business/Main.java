@@ -13,7 +13,6 @@ public class Main {
 		mainUI = new UI();
 		// 初始化一个下载对象
 		target = new DownloadTarget();
-		// 执行
 	}
 	public static Main getInstance() {
 		if (Main.UTIL == null) {

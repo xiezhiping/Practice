@@ -24,7 +24,6 @@ public class BrowseButtonListener implements ActionListener {
 			ui.getFileTextField().setText(nowFileName);
 		}
 		ui.getLocationBox().setSelectedItem(ui.getSaveDialog().getDirectory()); // TODO 点击下载再加入ItemPool
-		System.out.println("正确:" + ui.getSaveDialog().getDirectory()+ nowFileName);
 		Main.getTarget().setSavePath(ui.getSaveDialog().getDirectory()+ ui.getSaveDialog().getFile()); // 关闭窗口时设置保存位置
 	}
 	public boolean isModified(String name) {

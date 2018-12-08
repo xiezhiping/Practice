@@ -10,12 +10,6 @@ public class DownloadTarget {
 	private String url = null;
 	private String name = null;
 	private String savePath = null;
-//	public DownloadTarget() {
-//		this.url = url;
-//		this.name = name;
-//		this.savePath = savePath;
-//		this.id = url + "#" + name + "@" + savePath;
-//	}
 	@Override
 	public String toString() {
 		return getClass().getSimpleName() + " [id:" + getId() + "]";

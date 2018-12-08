@@ -7,7 +7,6 @@ public class FileTextFieldListener implements FocusListener {
 
 	@Override
 	public void focusGained(FocusEvent var1) { // 得到焦点时触发
-		System.out.println("focused");
 		
 	}
 
