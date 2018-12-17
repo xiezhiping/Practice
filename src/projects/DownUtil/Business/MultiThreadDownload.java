@@ -7,8 +7,6 @@ import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import com.sun.xml.internal.ws.api.streaming.XMLStreamReaderFactory.Default;
-
 import projects.DownUtil.DataLayer.DownloadTarget;
 import projects.DownUtil.DataLayer.HTTPHead;
 

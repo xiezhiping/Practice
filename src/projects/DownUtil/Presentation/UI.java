@@ -23,8 +23,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.ProgressMonitor;
 
-import com.sun.corba.se.impl.activation.ProcessMonitorThread;
-
 import projects.DownUtil.Business.BrowseButtonListener;
 import projects.DownUtil.Business.CancelListener;
 import projects.DownUtil.Business.ComboBoxListener;
