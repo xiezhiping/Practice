@@ -4,9 +4,6 @@ import java.awt.ItemSelectable;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
-
-
 /**
  * 用于存ComboBox选择框中的用户缓存数据
  * @author XZP
