@@ -40,7 +40,7 @@ public class Util {
 	
 	
 	/**
-	 * 随机生成浙江省杭州市的车牌号
+	 * 随机生成车牌号
 	 * @return
 	 */
 	public static String getPalte() {
