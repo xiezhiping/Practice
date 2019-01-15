@@ -1,5 +1,6 @@
 package projects.SimulatedParking.Data;
 
+import java.awt.RenderingHints.Key;
 import java.util.HashMap;
 
 public class Parking {
@@ -13,8 +14,19 @@ public class Parking {
 		map = new HashMap<>(); // 用于维护停车位到车牌号的一个映射关系
 		this.size = size;
 	}
+	/**
+	 * 表示一辆车从停车场检出
+	 * @param car
+	 * @return
+	 */
 	public boolean drive(Car car) {
-		
+		int index = this.getIndex(car);
+		if (index < 0) {
+			return false;
+		}
+		ps[index] = false;
+		map.remove(index);
+		return true;
 	}
 	/**
 	 * 根据车牌信息停车
@@ -82,7 +94,20 @@ public class Parking {
 		return false;
 	}
 	// 一些私有方法
-	
+	/**
+	 * 根据车辆信息查找车位编号
+	 * @param car
+	 * @return
+	 */
+	private int getIndex(Car car) {
+		String plate = car.getPlate();
+		for (Integer key : map.keySet()) {
+			if (map.get(key).equals(plate)) {
+				return key;
+			}
+		}
+		return -1;
+	}
 	/**
 	 * 获取当前停车位为空的第一个索引值
 	 * @return 停车位已满返回-1，其他返回下标值
