@@ -1,7 +1,8 @@
 package projects.SimulatedParking.Data;
 
-import java.awt.RenderingHints.Key;
 import java.util.HashMap;
+
+import projects.SimulatedParking.utils.Util;
 
 public class Parking {
 	private String name;
@@ -26,6 +27,7 @@ public class Parking {
 		}
 		ps[index] = false;
 		map.remove(index);
+		System.out.println(car.getPlate() + " 从停车场 " + this.name + " 的车位  " + index  + " 开走了");
 		return true;
 	}
 	/**
@@ -41,6 +43,7 @@ public class Parking {
 		// 将车位置为true，并维护车牌信息和停车位信息
 		ps[index] = true;
 		map.put(index, car.getPlate());
+		System.out.println(car.getPlate() + " 开进了停车场 " + this.name + " 停在了车位  " + index  + " 上");
 		return true;
 	}
 	/**
@@ -79,6 +82,7 @@ public class Parking {
 				return false;
 			}
 		}
+		Util.Println("车位满了！！！！");
 		return true;
 	}
 	/**
@@ -91,6 +95,7 @@ public class Parking {
 				return true;
 			}
 		}
+		Util.Println("车位满了！！！！");
 		return false;
 	}
 	// 一些私有方法
