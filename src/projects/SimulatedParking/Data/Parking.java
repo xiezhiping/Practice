@@ -19,32 +19,34 @@ public class Parking {
 	 * 表示一辆车从停车场检出
 	 * @param car
 	 * @return
+	 * @throws InterruptedException 
 	 */
-	public boolean drive(Car car) {
+	public synchronized void drive(Car car) throws InterruptedException {
 		int index = this.getIndex(car);
-		if (index < 0) {
-			return false;
+		while (index < 0) {
+			wait();
 		}
 		ps[index] = false;
 		map.remove(index);
-		System.out.println(car.getPlate() + " 从停车场 " + this.name + " 的车位  " + index  + " 开走了");
-		return true;
+		System.out.println(car.getPlate() + " 从停车场【 " + this.name + "】 的车位  " + index  + " 开走了");
+		notifyAll();
 	}
 	/**
 	 * 根据车牌信息停车
 	 * @param car 
 	 * @return
+	 * @throws InterruptedException 
 	 */
-	public boolean park(Car car) {
+	public synchronized void park(Car car) throws InterruptedException {
 		int index = this.getSpace();
-		if (index < 0) {
-			return false;
+		while (index < 0) {
+			wait();
 		}
 		// 将车位置为true，并维护车牌信息和停车位信息
 		ps[index] = true;
 		map.put(index, car.getPlate());
-		System.out.println(car.getPlate() + " 开进了停车场 " + this.name + " 停在了车位  " + index  + " 上");
-		return true;
+		System.out.println(car.getPlate() + " 开进了停车场 " + this.name + " 停在了车位  " + index);
+		notifyAll();
 	}
 	/**
 	 * 表示一辆车从停车场检出
@@ -99,6 +101,10 @@ public class Parking {
 		return false;
 	}
 	// 一些私有方法
+	/**
+	 * 用来检验同步正确性的方法(同步的另一种实现)
+	 */
+	
 	/**
 	 * 根据车辆信息查找车位编号
 	 * @param car
