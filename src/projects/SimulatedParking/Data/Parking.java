@@ -1,6 +1,8 @@
 package projects.SimulatedParking.Data;
 
 import java.util.HashMap;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 import projects.SimulatedParking.utils.Util;
 
@@ -9,11 +11,13 @@ public class Parking {
 	private boolean[] ps; // 指向停车位的一个数组
 	private int size = 0; // 车位数目
 	private HashMap<Integer, String> map;
+	private Lock parkLock;
 	public Parking(String name, int size) {
 		this.name = name;
 		ps = new boolean[size]; // 初始化停车位信息
 		map = new HashMap<>(); // 用于维护停车位到车牌号的一个映射关系
 		this.size = size;
+		parkLock = new ReentrantLock();
 	}
 	/**
 	 * 表示一辆车从停车场检出
@@ -29,6 +33,7 @@ public class Parking {
 		ps[index] = false;
 		map.remove(index);
 		System.out.println(car.getPlate() + " 从停车场【 " + this.name + "】 的车位  " + index  + " 开走了");
+		this.calcPlates();
 		notifyAll();
 	}
 	/**
@@ -46,6 +51,7 @@ public class Parking {
 		ps[index] = true;
 		map.put(index, car.getPlate());
 		System.out.println(car.getPlate() + " 开进了停车场 " + this.name + " 停在了车位  " + index);
+		this.calcPlates();
 		notifyAll();
 	}
 	/**
@@ -104,6 +110,22 @@ public class Parking {
 	/**
 	 * 用来检验同步正确性的方法(同步的另一种实现)
 	 */
+	private synchronized void calcPlates() {
+		parkLock.lock();
+		try {
+			int  empty = 0, full = 0;
+			for (int i = 0; i < size; i++) {
+				if (ps[i] == true) {
+					full++;
+				} else if (ps[i] == false) {
+					empty++;
+				}
+			}
+			Util.Println("停车场还有空位 ： " + empty + " , 已经停了：  "  + full + " 个位置， 总共： " + this.size);
+		} finally {
+			parkLock.unlock();
+		}
+	}
 	
 	/**
 	 * 根据车辆信息查找车位编号
