@@ -18,41 +18,49 @@ class PrintChar {
 	private char c = 'A';
 	public PrintChar() {
 	}
-	public synchronized void print() {
-		try {
-			if (PrintTest.isNum == true) { // 奇数打印数字
-				wait();
-			}
-			System.out.print(c);
-			c++;
-			if (c > 'Z') {
-				c = 'A';
-			}
-			PrintTest.isNum = true;
-			notifyAll();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-	}
+	public void print() {
+		synchronized (PrintTest.obj) {
+			try {
+				for (int i = 0; i < 26; i++) {
+					if (PrintTest.isNum == true) { // 奇数打印数字
+						PrintTest.obj.wait();
+					}
+					System.out.print(c);
+					c++;
+					if (c > 'Z') {
+						c = 'A';
+					}
+					PrintTest.isNum = true;
+					PrintTest.obj.notifyAll();
+				}
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+		}
+		}
 }
 }
 class PrintNum {
 	private int num = 1;
 	public PrintNum() {
 	}
-	public synchronized void print() {
+	public void print() {
+	synchronized (PrintTest.obj) {
 		try {
-			if (PrintTest.isNum == false) {
-				wait();
+			for (int i = 0; i < 26; i++) {
+				if (PrintTest.isNum == false) {
+					PrintTest.obj.wait();
+				}
+				System.out.print(num);
+				num++;
+				if (num > 26) {
+					num = 1;
+				}
+				PrintTest.isNum = false;
+				PrintTest.obj.notifyAll();
 			}
-			System.out.print(num);
-			num++;
-			if (num > 26) {
-				num = 1;
-			}
-			PrintTest.isNum = false;
-			notifyAll();
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+	}
 	}
 }
 }
