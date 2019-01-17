@@ -29,8 +29,8 @@ class PrintChar {
 			if (c > 'Z') {
 				c = 'A';
 			}
-			PrintTest.isNum = true;
 			PrintTest.obj.notifyAll();
+			PrintTest.isNum = true;
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 	}
@@ -52,8 +52,8 @@ class PrintNum {
 			if (num > 26) {
 				num = 1;
 			}
-			PrintTest.isNum = false;
 			PrintTest.obj.notifyAll();
+			PrintTest.isNum = false;
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 	}
