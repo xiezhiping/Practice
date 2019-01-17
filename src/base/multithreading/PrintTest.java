@@ -19,21 +19,19 @@ class PrintChar {
 	public PrintChar() {
 	}
 	public synchronized void print() {
-	synchronized (PrintTest.obj) {
 		try {
 			while (PrintTest.isNum == true) { // ÆæÊý´òÓ¡Êý×Ö
-				PrintTest.obj.wait();
+				wait();
 			}
 			System.out.print(c);
 			c++;
 			if (c > 'Z') {
 				c = 'A';
 			}
-			PrintTest.obj.notifyAll();
+			notifyAll();
 			PrintTest.isNum = true;
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-	}
 	}
 }
 }
@@ -42,21 +40,19 @@ class PrintNum {
 	public PrintNum() {
 	}
 	public synchronized void print() {
-	synchronized (PrintTest.obj) {
 		try {
 			while (PrintTest.isNum == false) {
-				PrintTest.obj.wait();
+				wait();
 			}
 			System.out.print(num);
 			num++;
 			if (num > 26) {
 				num = 1;
 			}
-			PrintTest.obj.notifyAll();
+			notifyAll();
 			PrintTest.isNum = false;
 		} catch (InterruptedException e) {
 			e.printStackTrace();
-	}
 	}
 }
 }
