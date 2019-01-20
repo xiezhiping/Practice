@@ -10,7 +10,7 @@ public class ThreadTest {
     public static void main(String[] args) {
         System.out.println("main start");
         ExecutorService threadPool = Executors.newSingleThreadExecutor();
-         Future<?> future1 = threadPool.submit(new MyRunnable()) ;
+//         Future<?> future1 = threadPool.submit(new MyRunnable()) ;
         Future<String> future = threadPool.submit(new MyCallable());
         try {
             // 这里会发生阻塞
