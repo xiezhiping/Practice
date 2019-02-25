@@ -17,6 +17,7 @@ public class Main {
 		StringBuilder sb = new StringBuilder();
 		String sub1 = "";
 		String sub2 = "";
+		// ¶Á
 		while((s = br.readLine()) != null) {
 			sub1 = s.split(":")[0];
 			sub2 = s.split(":")[1];
@@ -26,6 +27,7 @@ public class Main {
 			sb.append(sub1 + ":" + sub2 + "\n");
 		}
 		System.out.println(sb.toString());
+		// Ð´
 		File f = new File("F:\\java_workspace\\Practice\\src\\base\\IO\\predata\\resource\\result.txt");
 		FileWriter fw = new FileWriter(f);
 		BufferedWriter bw = new BufferedWriter(fw);
