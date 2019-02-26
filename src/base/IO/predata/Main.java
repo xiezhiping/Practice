@@ -22,7 +22,7 @@ public class Main {
 			sub1 = s.split(":")[0];
 			sub2 = s.split(":")[1];
 			if ("front".equals(sub2) == false) {
-				sub2 = "front";
+				sub2 = "unfront";
 			}
 			sb.append(sub1 + ":" + sub2 + "\n");
 		}
