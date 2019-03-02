@@ -25,7 +25,7 @@ public class Test {
 		}
 		// 第三种方式: 通过构造器
 		try {
-			Student std3 = Student.class.getConstructor().newInstance();
+			Student std3 = Student.class.getConstructor(int.class, String.class).newInstance(111, "ddd");
 			System.out.println(std3.getName());
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException e) {
