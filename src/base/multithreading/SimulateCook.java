@@ -1,11 +1,8 @@
 package base.multithreading;
 
-import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
-
-import javax.swing.table.TableStringConverter;
 
 /**
  * 该类使用两种多线程模拟做饭的过程：首先要有厨具（通过网购），然后是自己去小区买菜
